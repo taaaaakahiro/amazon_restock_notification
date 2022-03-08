@@ -1,0 +1,5 @@
+discord.py
+psycopg2
+oauth2client
+requests
+BeautifulSoup
