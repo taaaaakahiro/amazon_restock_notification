@@ -24,9 +24,8 @@ async def on_message(message):
     if message.content == '/amazon_now':
         uri = "https://www.amazon.co.jp/gp/offer-listing/4873117380/"
         ret = requests.get(uri)
-        await message.channel.send('にゃーん')
         soup = BeautifulSoup(ret.content,"lxml")
-        soup.find('div', {'class':'a-row a-spacing-mini olpOffer'})
+        await message.channel.send(soup.find('div', {'class':'a-row a-spacing-mini olpOffer'}))
         
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)   
