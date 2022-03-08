@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    build:
+      context: ./python
+      dockerfile: ./Dockerfile.py
+    ports:
+      - 8001:80
+  db:
+    build:
+      context: ./sql
+      dockerfile: ./Dockerfile.pg
+    container_name: postgresql
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      PGPASSWORD: admin
+      POSTGRES_DB: kojiDiscordBot
+      TZ: "Asia/Tokyo"
+    ports:
+      - 5433:5432
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+
