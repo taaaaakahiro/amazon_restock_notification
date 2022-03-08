@@ -6,6 +6,8 @@ services:
       dockerfile: ./Dockerfile.py
     ports:
       - 8001:80
+    volumes:
+      - "./python:/usr/src/app"
   # db:
   #   build:
   #     context: ./sql
