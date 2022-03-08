@@ -20,12 +20,12 @@ async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
-    # 「/neko」と発言したら「にゃーん」が返る処理
+    # 「/amazon_now」と発言したらamazonへ情報収集
     if message.content == '/amazon_now':
         uri = "https://www.amazon.co.jp/gp/offer-listing/4873117380/"
         ret = requests.get(uri)
         soup = BeautifulSoup(ret.content,"lxml")
-        await message.channel.send(soup.find('div', {'class':'a-row a-spacing-mini olpOffer'}))
-        
+        log = soup.find('a', {'class':'nav_a'})
+        await message.channel.send(log)
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)   
