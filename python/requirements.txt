@@ -4,3 +4,5 @@ oauth2client
 requests
 BeautifulSoup4
 lxml
+mysql-connector-python
+
