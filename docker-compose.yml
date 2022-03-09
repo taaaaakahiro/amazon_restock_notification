@@ -1,27 +1,32 @@
 version: '3'
 services:
   web:
+    container_name: py_amazonRestockBot
     build:
       context: ./python
-      dockerfile: ./Dockerfile.py
+      dockerfile: ./Dockerfile
     ports:
       - 8001:80
     volumes:
-      - "./python:/usr/src/app" #コンテナ内にディレクトリをマウント
-  # db:
-  #   build:
-  #     context: ./sql
-  #     dockerfile: ./Dockerfile.pg
-  #   container_name: postgresql
-  #   restart: always
-  #   environment:
-  #     POSTGRES_USER: root
-  #     POSTGRES_PASSWORD: admin
-  #     PGPASSWORD: admin
-  #     POSTGRES_DB: kojiDiscordBot
-  #     TZ: "Asia/Tokyo"
-  #   ports:
-  #     - 5433:5432
-  #   volumes:
-  #     - ./pg_data:/var/lib/postgresql/data
+      - "./:/usr/src/app" #コンテナ内にディレクトリをマウント
+  
+  db:
+    build:
+      context: ./db
+      dockerfile: ./Dockerfile
+    container_name: db_amazonRestockBot
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      PGPASSWORD: admin
+      POSTGRES_DB: amazonRestockBot
+      TZ: "Asia/Tokyo"
+    ports:
+      - 5433:5432
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+
+
+
 
