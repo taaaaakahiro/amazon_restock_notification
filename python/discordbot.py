@@ -22,10 +22,15 @@ async def on_message(message):
         return
     # 「/amazon_now」と発言したらamazonへ情報収集
     if message.content == '/amazon_now':
-        uri = "https://www.amazon.co.jp/gp/offer-listing/4873117380/"
+        uri = "https://www.amazon.co.jp/dp/B07X41PNSM"
         ret = requests.get(uri)
-        soup = BeautifulSoup(ret.content,"lxml")
-        log = soup.find('a', {'class':'nav_a'})
-        await message.channel.send(log)
+        soup = BeautifulSoup(ret.content,"html.parser")
+        get_price = soup.select('#corePriceDisplay_desktop_feature_div > div.a-section.a-spacing-none.aok-align-center > span > span:nth-child(2) > span.a-price-whole')
+        price = get_price[0].contents[0].replace(",","")
+
+        is_add_button = soup.select('#add-to-cart-button')
+        button = 'ボタンなし'  if is_add_button == None else 'ボタンあり' 
+
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)   
+
