@@ -2,7 +2,7 @@
 import discord
 import requests
 from bs4 import BeautifulSoup
-from sql import crud
+# from sql import crud
 
 # TOKEN
 TOKEN = 'OTUwNzMwNzAyNTYxODczOTMx.YidK9w.mDA7lovwrRhQ5rzRCJbH9-Dctbw'
@@ -29,10 +29,13 @@ async def on_message(message):
         ret = requests.get(uri)
         soup = BeautifulSoup(ret.content,"html.parser")
         get_price = soup.select('#corePriceDisplay_desktop_feature_div > div.a-section.a-spacing-none.aok-align-center > span > span:nth-child(2) > span.a-price-whole')
-        price = get_price[0].contents[0].replace(",","")
+        price = '価格表示が取得できませんでした。' if get_price == None else  get_price[0].contents[0].replace(",","")
 
         is_add_button = soup.select('#add-to-cart-button')
         button = 'ボタンなし'  if is_add_button == None else 'ボタンあり' 
+
+        await message.channel.send(price)
+        await message.channel.send(button)
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)   

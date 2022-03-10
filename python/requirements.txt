@@ -4,5 +4,3 @@ oauth2client
 requests
 BeautifulSoup4
 lxml
-psycopg2
-
