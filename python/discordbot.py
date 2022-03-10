@@ -2,6 +2,8 @@
 import discord
 import requests
 from bs4 import BeautifulSoup
+from sql import crud
+
 # TOKEN
 TOKEN = 'OTUwNzMwNzAyNTYxODczOTMx.YidK9w.mDA7lovwrRhQ5rzRCJbH9-Dctbw'
 
@@ -13,6 +15,7 @@ client = discord.Client()
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
+    
 
 # メッセージ受信時に動作する処理
 @client.event
