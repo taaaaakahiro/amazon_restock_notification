@@ -24,9 +24,27 @@ services:
       - TZ=${TZ}
     ports:
       - ${DB_PORT}:3306
-
+      
 volumes:
   db-store:
+
+ 
+  # db:
+  #   build:
+  #     context: ./db
+  #     dockerfile: ./Dockerfile
+  #   container_name: db_amazonRestockBot
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: root
+  #     POSTGRES_PASSWORD: admin
+  #     PGPASSWORD: admin
+  #     POSTGRES_DB: amazonRestockBot
+  #     TZ: "Asia/Tokyo"
+  #   ports:
+  #     - 5433:5432
+  #   volumes:
+  #     - ./pg_data:/var/lib/postgresql/data
 
 
 
