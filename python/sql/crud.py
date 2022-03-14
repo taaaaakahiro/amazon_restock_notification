@@ -17,7 +17,7 @@ def connect():
   # DB操作用にカーソルを作成
   cur = conn.cursor()
   cur.execute("DROP TABLE IF EXISTS merchandise")
-  # id, name, priceを持つテーブルを（すでにあればいったん消してから）作成
+  # テーブルを（すでにあればいったん消してから）作成
   sql = '''
     CREATE TABLE merchandise(
        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
