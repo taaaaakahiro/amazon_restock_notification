@@ -36,7 +36,28 @@ async def on_message(message):
 
         await message.channel.send(price)
         await message.channel.send(button)
+    
+    if '!一覧' in message.content:
+        await message.channel.send('一覧を表示')
+
+    if '!登録' in message.content:
+        tmp = message.content
+        msg = tmp.split()
+        try:
+            msg[1],msg[2]
+            await message.channel.send(msg[1]+'と'+msg[2]+'が登録されました')
+        except IndexError:
+            await message.channel.send('価格またはACINCODEを入力してください。')
+
+    if '!削除' in message.content:
+        tmp = message.content
+        msg = tmp.split()
+        try:
+            msg[1]
+            await message.channel.send('番号:'+msg[1]+'が削除されました')
+        except IndexError:
+            await message.channel.send('IDを入力してください')
+
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)   
-
