@@ -1,5 +1,6 @@
 discord.py
 psycopg2
+mysql-connector-python
 oauth2client
 requests
 BeautifulSoup4

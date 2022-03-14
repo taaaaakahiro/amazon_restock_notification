@@ -10,8 +10,9 @@ services:
     volumes:
       - "./:/usr/src/app"
 
-  db:
+  db:     
     image: mysql:8.0
+    # container_name: mysql_amazonRestockBot
     volumes:
       - db-store:/var/lib/mysql
       - ./logs:/var/log/mysql
@@ -29,22 +30,7 @@ volumes:
   db-store:
 
  
-  # db:
-  #   build:
-  #     context: ./db
-  #     dockerfile: ./Dockerfile
-  #   container_name: db_amazonRestockBot
-  #   restart: always
-  #   environment:
-  #     POSTGRES_USER: root
-  #     POSTGRES_PASSWORD: admin
-  #     PGPASSWORD: admin
-  #     POSTGRES_DB: amazonRestockBot
-  #     TZ: "Asia/Tokyo"
-  #   ports:
-  #     - 5433:5432
-  #   volumes:
-  #     - ./pg_data:/var/lib/postgresql/data
+
 
 
 
