@@ -1,5 +1,4 @@
 import mysql.connector as mydb
-import datetime
 
 def connect():
     conn = mydb.connect(
@@ -9,6 +8,56 @@ def connect():
         port='3306',
         database='amazonRestockBot',
     )
+    conn.ping(reconnect=True)
+    conn.autocommit = False
+    return conn
+
+
+def get_merchandise():
+    conn = connect()
+    cur = conn.cursor()
+    try:
+        cur.execute(
+            "SELECT id,asin_code,price FROM merchandise WHERE deleted_at IS NULL"
+        )
+        data = cur.fetchall()
+        return data
+
+    except IndexError:
+        return False
+
+
+def add_merchandise(asin_code, price):
+    conn = connect()
+    cur = conn.cursor()
+    try:
+        cur.execute(
+            "INSERT INTO merchandise (asin_code, price, created_at ) VALUES (%s, %s, NOW())",
+            (asin_code, price)
+        )
+        conn.commit()
+        return True
+
+    except IndexError:
+        return False
+
+
+def del_merchandise(id):
+    conn = connect()
+    cur = conn.cursor()
+    try:
+        cur.execute(
+            "UPDATE merchandise SET deleted_at = NOW() WHERE id = %s",(id,)
+            )
+        conn.commit()
+        return True
+
+    except IndexError:
+        return False
+
+def ini_connect():
+    
+    conn = connect()
     # コネクションが切れた時に再接続してくれるよう設定
     conn.ping(reconnect=True)
 
@@ -28,54 +77,3 @@ def connect():
       deleted_at DATE NUll
     )'''
     cur.execute(sql)
-
-
-def tmp_connect():
-    conn = mydb.connect(
-        host='db',
-        user='admin',
-        password='admin',
-        port='3306',
-        database='amazonRestockBot',
-    )
-    return conn
-
-def get_merchandise():
-    conn = tmp_connect()
-    cur = conn.cursor()
-    try:
-        cur.execute(
-            'SELECT * FROM merchandise WHERE NOT NULL deleted_at'
-        )
-        data = cur.fetchall()
-        return data
-
-    except IndexError:
-        return False
-
-
-def add_merchandise(asin_code, price):
-    conn = tmp_connect()
-    cur = conn.cursor()
-    try:
-        cur.execute(
-            'INSERT INTO merchandise (asin_code, price ) VALUES (%s, %s)',
-            (asin_code, price)
-        )
-        return True
-
-    except IndexError:
-        return False
-
-def del_merchandise(id):
-    conn = tmp_connect()
-    cur = conn.cursor()
-    try:
-        cur.execute(
-            'UPDATE merchandise (deleted_at) VALUES (%s, %s)',
-            (datetime.datetime.now())
-        )
-        return True
-
-    except IndexError:
-        return False
