@@ -6,7 +6,7 @@ services:
       context: ./python
       dockerfile: ./Dockerfile
     ports:
-      - 8001:80
+      - 8001:81
     volumes:
       - "./:/usr/src/app"
 

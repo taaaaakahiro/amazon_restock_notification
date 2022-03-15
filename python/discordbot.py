@@ -3,7 +3,6 @@ import discord
 import requests
 from bs4 import BeautifulSoup
 from sql import crud
-# from sql import crud
 
 # TOKEN
 TOKEN = 'OTUwNzMwNzAyNTYxODczOTMx.YidK9w.mDA7lovwrRhQ5rzRCJbH9-Dctbw'
