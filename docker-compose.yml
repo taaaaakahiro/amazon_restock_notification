@@ -3,10 +3,10 @@ services:
   web:
     container_name: py_amazonRestockBot
     build:
-      context: ./python
+      context: .
       dockerfile: ./Dockerfile
     ports:
-      - 8001:81
+      - 8001:80
     volumes:
       - "./:/usr/src/app"
 
