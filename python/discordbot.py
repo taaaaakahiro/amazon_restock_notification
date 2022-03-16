@@ -22,7 +22,13 @@ client = discord.Client()
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
-    crud.connect()
+    db = crud.MySQL(os.getenv('PYTHON_HOST'),os.getenv('PYTHON_USER'),os.getenv('PYTHON_PASSWORD'),os.getenv('PYTHON_PORT'),os.getenv('PYTHON_DATABASE'))
+    db.connect()
+    
+
+
+
+
 
 
 # メッセージ受信時に動作する処理
@@ -33,7 +39,7 @@ async def on_message(message):
         return
     # 「/amazon_now」と発言したらamazonへ情報収集
     if message.content == '/amazon_now':
-        uri = "https://www.amazon.co.jp/dp/B07X41PNSM"
+        uri = os.getenv('PYTHON_HOST') + "B07X41PNSM"
         ret = requests.get(uri)
         soup = BeautifulSoup(ret.content, "html.parser")
         get_price = soup.select(
