@@ -3,9 +3,14 @@ import discord
 import requests
 from bs4 import BeautifulSoup
 from sql import crud
+from dotenv import load_dotenv
+import os
 
-# TOKEN
-TOKEN = 'OTUwNzMwNzAyNTYxODczOTMx.YidK9w.mDA7lovwrRhQ5rzRCJbH9-Dctbw'
+# 環境変数(.envファイル)読み込み
+load_dotenv()
+
+# 環境変数利用
+TOKEN = os.getenv('TOKEN_DISCORD')
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
