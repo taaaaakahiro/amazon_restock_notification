@@ -17,19 +17,14 @@ client = discord.Client()
 
 # 起動時に動作する処理
 
+# インスタンス化
+db = crud.MySQL(os.getenv('PYTHON_HOST'),os.getenv('PYTHON_USER'),os.getenv('PYTHON_PASSWORD'),os.getenv('PYTHON_PORT'),os.getenv('PYTHON_DATABASE'))
 
 @client.event
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
-    db = crud.MySQL(os.getenv('PYTHON_HOST'),os.getenv('PYTHON_USER'),os.getenv('PYTHON_PASSWORD'),os.getenv('PYTHON_PORT'),os.getenv('PYTHON_DATABASE'))
-    db.connect()
-    
-
-
-
-
-
+    conn = db.connect() # 接続確認
 
 # メッセージ受信時に動作する処理
 @client.event
@@ -54,7 +49,7 @@ async def on_message(message):
         await message.channel.send(button)
 
     if '!一覧' in message.content:
-        rows = crud.get_merchandise()
+        rows = db.get_merchandise()
         print(rows)
         for row in rows:
             id = str(row[0])
@@ -69,8 +64,8 @@ async def on_message(message):
             msg[1], msg[2]
             asin_code = msg[1]
             price = msg[2]
-            crud.add_merchandise(asin_code, price)
-            await message.channel.send(crud.add_merchandise(asin_code, price))
+            db.add_merchandise(asin_code, price)
+            await message.channel.send(db.add_merchandise(asin_code, price))
 
         except IndexError:
             await message.channel.send('価格またはACINCODEを入力してください。')
@@ -81,13 +76,13 @@ async def on_message(message):
         try:
             msg[1]
             id = int(msg[1])
-            await message.channel.send(crud.del_merchandise(id))
+            await message.channel.send(db.del_merchandise(id))
 
         except IndexError:
             await message.channel.send('IDを入力してください')
 
     if '!!初期DB作成' == message.content:
-        crud.ini_connect()
+        db.ini_connect()
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)

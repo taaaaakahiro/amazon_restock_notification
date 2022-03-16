@@ -2,19 +2,19 @@ import mysql.connector as mydb
 
 class MySQL:
   def __init__(self, host, user, password, port, database):
-    self.host_Mysql     = host
-    self.user_Mysql     = user
-    self.password_Mysql = password
-    self.port_Mysql     = port
-    self.database_Mysql = database
+    self.host_mysql     = host
+    self.user_mysql     = user
+    self.password_mysql = password
+    self.port_mysql     = port
+    self.database_mysql = database
 
   def connect(self):
       conn = mydb.connect(
-          host=self.host_Mysql,
-          user=self.user_Mysql,
-          password=self.password_Mysql,
-          port=self.port_Mysql,
-          database=self.database_Mysql,
+          host=self.host_mysql,
+          user=self.user_mysql,
+          password=self.password_mysql,
+          port=self.port_mysql,
+          database=self.database_mysql,
       )
       conn.ping(reconnect=True)
       conn.autocommit = False
@@ -23,7 +23,14 @@ class MySQL:
 
 
   def get_merchandise(self):
-      conn = connect()
+      conn = mydb.connect(
+          host=self.host_mysql,
+          user=self.user_mysql,
+          password=self.password_mysql,
+          port=self.port_mysql,
+          database=self.database_mysql,
+      )
+      # conn = connect()
       cur = conn.cursor()
       try:
           cur.execute(
@@ -37,7 +44,14 @@ class MySQL:
 
 
   def add_merchandise(self, asin_code, price):
-      conn = connect()
+      # conn = connect()
+      conn = mydb.connect(
+          host=self.host_mysql,
+          user=self.user_mysql,
+          password=self.password_mysql,
+          port=self.port_mysql,
+          database=self.database_mysql,
+      )
       cur = conn.cursor()
       try:
           cur.execute(
@@ -52,7 +66,14 @@ class MySQL:
 
 
   def del_merchandise(self, id):
-      conn = connect()
+      # conn = connect()
+      conn = mydb.connect(
+          host=self.host_mysql,
+          user=self.user_mysql,
+          password=self.password_mysql,
+          port=self.port_mysql,
+          database=self.database_mysql,
+      )
       cur = conn.cursor()
       try:
           cur.execute(
@@ -65,8 +86,14 @@ class MySQL:
           return False
 
   def ini_connect(self):
-      
-      conn = connect()
+      conn = mydb.connect(
+          host=self.host_mysql,
+          user=self.user_mysql,
+          password=self.password_mysql,
+          port=self.port_mysql,
+          database=self.database_mysql,
+      )
+      # conn = connect()
       # コネクションが切れた時に再接続してくれるよう設定
       conn.ping(reconnect=True)
 
