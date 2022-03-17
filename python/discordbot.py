@@ -25,6 +25,7 @@ async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
     conn = db.connect() # 接続確認
+    db.ini_connect() # テーブルが存在しなければ作成
 
 # メッセージ受信時に動作する処理
 @client.event
@@ -48,9 +49,11 @@ async def on_message(message):
         await message.channel.send(price)
         await message.channel.send(button)
 
-    if '!一覧' in message.content:
+    if '!一覧' == message.content[:3] and len(message.content) == 3:
         rows = db.get_merchandise()
-        print(rows)
+        if rows == []:
+            await message.channel.send('登録商品なし')
+            return
         for row in rows:
             id = str(row[0])
             asin_code = row[1]
@@ -59,7 +62,7 @@ async def on_message(message):
 
     if '!登録' in message.content:
         tmp = message.content
-        msg = tmp.split()
+        msg = tmp.split() #スペース区切り
         try:
             msg[1], msg[2]
             asin_code = msg[1]
@@ -73,6 +76,7 @@ async def on_message(message):
     if '!削除' in message.content:
         tmp = message.content
         msg = tmp.split()
+        msg
         try:
             msg[1]
             id = int(msg[1])

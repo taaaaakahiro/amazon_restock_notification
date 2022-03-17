@@ -30,7 +30,6 @@ class MySQL:
           port=self.port_mysql,
           database=self.database_mysql,
       )
-      # conn = connect()
       cur = conn.cursor()
       try:
           cur.execute(
@@ -44,7 +43,6 @@ class MySQL:
 
 
   def add_merchandise(self, asin_code, price):
-      # conn = connect()
       conn = mydb.connect(
           host=self.host_mysql,
           user=self.user_mysql,
@@ -59,10 +57,10 @@ class MySQL:
               (asin_code, price)
           )
           conn.commit()
-          return True
+          return '登録が完了しました'
 
       except IndexError:
-          return False
+          return '入力値が不正です'
 
 
   def del_merchandise(self, id):
@@ -80,7 +78,7 @@ class MySQL:
               "UPDATE merchandise SET deleted_at = NOW() WHERE id = %s",(id,)
               )
           conn.commit()
-          return True
+          return '削除しました'
 
       except IndexError:
           return False
@@ -93,23 +91,19 @@ class MySQL:
           port=self.port_mysql,
           database=self.database_mysql,
       )
-      # conn = connect()
       # コネクションが切れた時に再接続してくれるよう設定
       conn.ping(reconnect=True)
 
-      # 接続できているかどうか確認
-      print(conn.is_connected())
-
       # DB操作用にカーソルを作成
       cur = conn.cursor()
-      cur.execute("DROP TABLE IF EXISTS merchandise")
       # テーブルを（すでにあればいったん消してから）作成
       sql = '''
-      CREATE TABLE merchandise(
+      CREATE TABLE IF NOT EXISTS merchandise(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        asin_code VARCHAR(50) NULL,
-        price INT(50) NULL,
+        asin_code VARCHAR(50) UNIQUE NOT NULL,
+        name VARCHAR(50),
+        price INT(50) NOT NULl,
         created_at DATE NULL,
-        deleted_at DATE NUll
+        deleted_at DATE NULL
       )'''
       cur.execute(sql)
