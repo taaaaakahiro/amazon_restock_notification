@@ -33,7 +33,7 @@ class MySQL:
       cur = conn.cursor()
       try:
           cur.execute(
-              "SELECT id,asin_code,price FROM merchandise WHERE deleted_at IS NULL"
+              "SELECT id,asin_code,price,name FROM merchandise WHERE deleted_at IS NULL"
           )
           data = cur.fetchall()
           return data
@@ -42,7 +42,7 @@ class MySQL:
           return '商品が取得できませんでした'
 
 
-  def add_merchandise(self, asin_code, price):
+  def add_merchandise(self, asin_code, price, name):
       conn = mydb.connect(
           host=self.host_mysql,
           user=self.user_mysql,
@@ -53,8 +53,8 @@ class MySQL:
       cur = conn.cursor()
       try:
           cur.execute(
-              "INSERT INTO merchandise (asin_code, price, created_at ) VALUES (%s, %s, NOW())",
-              (asin_code, price)
+              "INSERT INTO merchandise (asin_code, price, name, created_at ) VALUES (%s, %s, %s, NOW())",
+              (asin_code, price, name)
           )
           conn.commit()
           return '登録が完了しました'
