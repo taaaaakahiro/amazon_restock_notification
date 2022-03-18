@@ -39,7 +39,7 @@ class MySQL:
           return data
 
       except IndexError:
-          return False
+          return '商品が取得できませんでした'
 
 
   def add_merchandise(self, asin_code, price):
