@@ -21,7 +21,6 @@ class MySQL:
       print("接続成功")
       return conn
 
-
   def get_merchandise(self):
       conn = mydb.connect(
           host=self.host_mysql,
@@ -40,7 +39,6 @@ class MySQL:
 
       except IndexError:
           return '商品が取得できませんでした'
-
 
   def add_merchandise(self, asin_code, price):
       conn = mydb.connect(
@@ -61,7 +59,6 @@ class MySQL:
 
       except IndexError:
           return '入力値が不正です'
-
 
   def del_merchandise(self, id):
       # conn = connect()
@@ -96,7 +93,7 @@ class MySQL:
 
       # DB操作用にカーソルを作成
       cur = conn.cursor()
-      # テーブルを（すでにあればいったん消してから）作成
+      # テーブルを（なければ）作成
       sql = '''
       CREATE TABLE IF NOT EXISTS merchandise(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
