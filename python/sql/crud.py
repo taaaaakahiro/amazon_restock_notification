@@ -99,7 +99,7 @@ class MySQL:
       CREATE TABLE IF NOT EXISTS merchandise(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         asin_code VARCHAR(50) UNIQUE NOT NULL,
-        name VARCHAR(50),
+        name VARCHAR(255),
         price INT(50) NOT NULl,
         created_at DATE NULL,
         deleted_at DATE NULL
