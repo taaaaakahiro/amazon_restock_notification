@@ -63,4 +63,4 @@ for row in rows:
                 "content": data
             }
             result = requests.post(hook_url, data=payload)
-        time.sleep(3)
+        time.sleep(10)
