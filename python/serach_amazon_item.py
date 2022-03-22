@@ -38,7 +38,6 @@ for row in rows:
         if (get_price != []):
             get_price[0].contents[0]
             amazon_price = get_price[0].contents[0].replace(",", "").replace("￥", "")
-            amazon_price = amazon_price.replace(",", "￥")
             print(uri)
             print(amazon_price)
         else:
