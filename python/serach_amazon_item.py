@@ -4,6 +4,7 @@ from sql import crud
 from dotenv import load_dotenv
 import os
 import sys
+import time
 
 load_dotenv()
 db = crud.MySQL(
@@ -62,3 +63,4 @@ for row in rows:
                 "content": data
             }
             result = requests.post(hook_url, data=payload)
+        time.sleep(3)
