@@ -27,24 +27,39 @@ for row in rows:
     uri = os.getenv('URI') + asin_code
     ret = requests.get(uri)
     soup = BeautifulSoup(ret.content, "html.parser")
-    get_price = soup.select(
-        '#corePriceDisplay_desktop_feature_div > div.a-section.a-spacing-none.aok-align-center > span > span:nth-child(2) > span.a-price-whole'
-    )
-    print(uri)
-    try:
-      get_price[0].contents[0]
-      amazon_price =  get_price[0].contents[0].replace(",", "")
-    except IndexError:
-      print(get_price)
-      amazon_price = 999999999999
+
     is_add_button = soup.select('#add-to-cart-button')
     button = False if is_add_button == None else True
 
-    if (price > amazon_price and button):
-        data = name + "が価格が下がってます\r"
-        payload = {
-            "username": "amazon巡回マン",
-            "avatar_url": "https://github.com/qiita.png",
-            "content": data
-        }
-        result = requests.post(hook_url, data=payload)
+    if button:
+        get_price = soup.select(
+            '#corePrice_feature_div > div > span > span.a-offscreen'
+        )
+        if (get_price != []):
+            get_price[0].contents[0]
+            amazon_price = get_price[0].contents[0].replace(",", "").replace("￥", "")
+            amazon_price = amazon_price.replace(",", "￥")
+            print(uri)
+            print(amazon_price)
+        else:
+            get_price = soup.select(
+                '#corePrice_feature_div > div > span > span:nth-child(2) > span.a-price-whole'
+            )
+            try:
+                amazon_price = get_price[0].contents[0].replace(",", "").replace("￥", "")
+                print(amazon_price+'tryに入ってる')
+                get_price[0].contents[0]
+
+            except IndexError:
+                amazon_price = 99999999
+                print(uri)
+                print(amazon_price)
+
+        if (int(price) > int(amazon_price)):
+            data = name + "が価格が下がってます\r"
+            payload = {
+                "username": "amazon巡回マン",
+                "avatar_url": "https://github.com/qiita.png",
+                "content": data
+            }
+            result = requests.post(hook_url, data=payload)
