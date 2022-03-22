@@ -56,7 +56,7 @@ for row in rows:
                 print(amazon_price)
 
         if (int(price) > int(amazon_price)):
-            data = name + "が価格が下がってます\r"
+            data = "[リストック通知] " + name + "\r" + uri
             payload = {
                 "username": "amazon巡回マン",
                 "avatar_url": "https://github.com/qiita.png",
