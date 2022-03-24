@@ -4,7 +4,18 @@ from sql import crud
 from dotenv import load_dotenv
 import os
 import sys
+import datetime
 import time
+import logging
+
+# ログ
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+
+logger = logging.getLogger(__name__)
+h = logging.FileHandler('scraping.log')
+logger.addHandler(h)
+
 
 load_dotenv()
 db = crud.MySQL(
@@ -38,15 +49,19 @@ for row in rows:
         )
         if (get_price != []):
             get_price[0].contents[0]
-            amazon_price = get_price[0].contents[0].replace(",", "").replace("￥", "")
+            amazon_price = get_price[0].contents[0].replace(
+                ",", "").replace("￥", "")
             print(uri)
             print(amazon_price)
+            logger.info('%s / %s / %s', uri, amazon_price,
+                         datetime.datetime.now())
         else:
             get_price = soup.select(
                 '#corePrice_feature_div > div > span > span:nth-child(2) > span.a-price-whole'
             )
             try:
-                amazon_price = get_price[0].contents[0].replace(",", "").replace("￥", "")
+                amazon_price = get_price[0].contents[0].replace(
+                    ",", "").replace("￥", "")
                 print(amazon_price+'tryに入ってる')
                 get_price[0].contents[0]
 
@@ -54,6 +69,8 @@ for row in rows:
                 amazon_price = 99999999
                 print(uri)
                 print(amazon_price)
+            logger.info('%s / %s / %s', uri, amazon_price,
+                         datetime.datetime.now())
 
         if (int(price) > int(amazon_price)):
             data = "【リストック通知】 " + name + "\r" + uri
