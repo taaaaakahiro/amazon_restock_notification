@@ -20,7 +20,7 @@ services:
     container_name: mysql_amazonRestockBot
     volumes:
       - db-store:/var/lib/mysql
-      - ./logs:/var/log/mysql
+      # - ./logs:/var/log/mysql
       - ./db/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       - MYSQL_DATABASE=${DB_NAME}
