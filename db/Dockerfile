@@ -1,8 +1,3 @@
-FROM postgres:12-alpine
-
-# Time Zone
-ENV TZ Asia/Tokyo
-# Language
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:ja
-ENV LC_ALL ja_JP.UTF-8
+FROM mysql:8.0
+RUN mkdir /var/log/mysql
+# RUN chown mysql:mysql /var/log/mysql
