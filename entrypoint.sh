@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose exec web python ./python/serach_amazon_item.py
+docker-compose exec web python ./python/search_amazon_item.py
