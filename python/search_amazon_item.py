@@ -73,9 +73,9 @@ for row in rows:
                          datetime.datetime.now())
 
         if (int(price) > int(amazon_price)):
-            data = f'【通知】 {name} \r {uri}'
+            data = f'【リストック通知】 {name} \r {uri}'
             payload = {
-                "username": "amazon巡回マン",
+                "username": "リストック通知bot",
                 "avatar_url": "https://github.com/qiita.png",
                 "content": data
             }
