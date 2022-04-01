@@ -59,7 +59,7 @@ async def on_message(message):
             asin_code = row[1]
             price = str(row[2])
             name = str(row[3])
-            await message.channel.send('ID=' + id + ', 商品名= '+ name +' , 価格='+ price, asincode='+ asin_code +')
+            await message.channel.send('ID=' + id + ', 商品名= '+ name +' , 価格='+ price + ', asincode='+ asin_code)
 
     if '!登録' in message.content:
         tmp = message.content
