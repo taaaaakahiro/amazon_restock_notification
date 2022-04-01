@@ -59,7 +59,7 @@ async def on_message(message):
             asin_code = row[1]
             price = str(row[2])
             name = str(row[3])
-            await message.channel.send('ID=' + id + ', 商品名= '+ name +' , asincode='+ asin_code +', 価格='+ price)
+            await message.channel.send('ID=' + id + ', 商品名= '+ name +' , 価格='+ price, asincode='+ asin_code +')
 
     if '!登録' in message.content:
         tmp = message.content
@@ -73,7 +73,7 @@ async def on_message(message):
             await message.channel.send(db.add_merchandise(asin_code, price, name))
 
         except IndexError:
-            await message.channel.send('商品名、価格、ACINCODEを正しく入力してください。')
+            await message.channel.send('商品名、価格、ASINCODEを正しく入力してください。')
 
     if '!削除' in message.content:
         tmp = message.content
