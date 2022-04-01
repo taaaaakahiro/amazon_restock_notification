@@ -63,12 +63,13 @@ async def on_message(message):
 
     if '!登録' in message.content:
         tmp = message.content
-        msg = tmp.split() #スペース区切り
+        msg = tmp.split('/') #スペース区切り
+        print(msg)
         try:
             msg[1], msg[2], msg[3]
             name = msg[1]
-            asin_code = msg[2]
-            price = msg[3]
+            price = msg[2]
+            asin_code = msg[3]
             
             await message.channel.send(db.add_merchandise(asin_code, price, name))
 
@@ -77,7 +78,7 @@ async def on_message(message):
 
     if '!削除' in message.content:
         tmp = message.content
-        msg = tmp.split()
+        msg = tmp.split('/')
         msg
         try:
             msg[1]

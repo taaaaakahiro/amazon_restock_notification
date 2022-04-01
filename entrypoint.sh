@@ -1,3 +1,4 @@
 #!/bin/sh
 
-docker-compose exec web python ./python/search_amazon_item.py
+cd /home/ec2-user/amazonRestockNotification
+docker-compose exec -T web python /usr/src/app/python/search_amazon_item.py
