@@ -39,6 +39,7 @@ for row in rows:
     uri = os.getenv('URI') + asin_code
     ret = requests.get(uri)
     soup = BeautifulSoup(ret.content, "html.parser")
+    time.sleep(3)
 
     is_add_button = soup.select('#add-to-cart-button')
     button = False if is_add_button == None else True
