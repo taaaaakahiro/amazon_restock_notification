@@ -129,5 +129,4 @@ dmypy.json
 .pyre/
 pg_data
 db-store
-
 entrypoint.sh
