@@ -1,2 +1,0 @@
-# amazonRestockNotification
-Amazonの在庫通知
